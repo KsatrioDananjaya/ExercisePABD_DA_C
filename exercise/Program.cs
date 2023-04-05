@@ -48,7 +48,7 @@ namespace Insert_and_Get_Data
                                             case '1':
                                                 {
                                                     Console.Clear();
-                                                    Console.WriteLine("DATA MAHASISWA\n");
+                                                    Console.WriteLine("DATA BARANG\n");
                                                     Console.WriteLine();
                                                     pr.baca(conn);
 
@@ -57,16 +57,16 @@ namespace Insert_and_Get_Data
                                             case '2':
                                                 {
                                                     Console.Clear();
-                                                    Console.WriteLine("INPUT DATA MAHASISWA\n");
-                                                    Console.WriteLine("Masukkan NIM :");
+                                                    Console.WriteLine("INPUT DATA BARANG\n");
+                                                    Console.WriteLine("Masukkan Barang ID :");
                                                     string NIM = Console.ReadLine();
-                                                    Console.WriteLine("Masukkan Nama Mahasiswa :");
+                                                    Console.WriteLine("Masukkan Nama Barang :");
                                                     string NmaMhs = Console.ReadLine();
-                                                    Console.WriteLine("Masukkan Alamat Mahasiswa :");
+                                                    Console.WriteLine("Masukkan Harga :");
                                                     string Almt = Console.ReadLine();
-                                                    Console.WriteLine("Masukkan Jenis Kelamin (L/P) : ");
+                                                    Console.WriteLine("Masukkan Deskripsi Barang : ");
                                                     string jk = Console.ReadLine();
-                                                    Console.WriteLine("Masukkan Nomor Telepon :");
+                                                    Console.WriteLine("Masukkan Kategori :");
                                                     string notlpn = Console.ReadLine();
                                                     try
                                                     {
