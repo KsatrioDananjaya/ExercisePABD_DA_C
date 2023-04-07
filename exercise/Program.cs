@@ -132,14 +132,6 @@ namespace Insert_and_Get_Data
             }
         }
 
-        public void delete(SqlConnection con)
-        {
-            SqlCommand cmd = new SqlCommand("Delete from dbo.Barang(barang, nama barang, harga, deskripbar, kategor, penjual) = values(@bar,@nma,@harga,@deskrip,@kateg, @penjual)",con);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@bar,@nma,@harga,@deskrip,@kateg, @penjual", "barang, nama barang, harga, deskripbar, kategor, penjual");
-            cmd.ExecuteNonQuery();
-        }
-
         public void baca(SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand("Select * From dbo.Barang", con);
@@ -170,6 +162,13 @@ namespace Insert_and_Get_Data
             cmd.Parameters.Add(new SqlParameter("penjual", penjual)); 
             cmd.ExecuteNonQuery();
             Console.WriteLine("Data Berhasil Di Tambahkan");
+        }
+        public void delete(SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand("Delete from dbo.Barang(barang, nama barang, harga, deskripbar, kategor, penjual) = values(@bar,@nma,@harga,@deskrip,@kateg, @penjual)", con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@bar,@nma,@harga,@deskrip,@kateg, @penjual", "barang, nama barang, harga, deskripbar, kategor, penjual");
+            cmd.ExecuteNonQuery();
         }
     }
 }
