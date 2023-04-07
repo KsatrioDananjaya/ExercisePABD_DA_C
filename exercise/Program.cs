@@ -40,8 +40,9 @@ namespace Insert_and_Get_Data
                                         Console.WriteLine("\nMenu");
                                         Console.WriteLine("1. Melihat Seluruh Data");
                                         Console.WriteLine("2. Tambah Data");
-                                        Console.WriteLine("3. Keluar");
-                                        Console.Write("\nEnter your choice (1-3): ");
+                                        Console.WriteLine("3. Delete Data");
+                                        Console.WriteLine("4. Keluar");
+                                        Console.Write("\nEnter your choice (1-4): ");
                                         char ch = Convert.ToChar(Console.ReadLine());
                                         switch (ch)
                                         {
@@ -59,18 +60,20 @@ namespace Insert_and_Get_Data
                                                     Console.Clear();
                                                     Console.WriteLine("INPUT DATA BARANG\n");
                                                     Console.WriteLine("Masukkan Barang ID :");
-                                                    string NIM = Console.ReadLine();
+                                                    string barang = Console.ReadLine();
                                                     Console.WriteLine("Masukkan Nama Barang :");
-                                                    string NmaMhs = Console.ReadLine();
+                                                    string namabar = Console.ReadLine();
                                                     Console.WriteLine("Masukkan Harga :");
-                                                    string Almt = Console.ReadLine();
+                                                    string harga = Console.ReadLine();
                                                     Console.WriteLine("Masukkan Deskripsi Barang : ");
-                                                    string jk = Console.ReadLine();
+                                                    string deskripbar = Console.ReadLine();
                                                     Console.WriteLine("Masukkan Kategori :");
-                                                    string notlpn = Console.ReadLine();
+                                                    string kategor = Console.ReadLine();
+                                                    Console.WriteLine("Masukkan Penjual :");
+                                                    string penjual = Console.ReadLine();
                                                     try
                                                     {
-                                                        pr.insert(NIM, NmaMhs, Almt, jk, notlpn, conn);
+                                                        pr.insert(barang, namabar, harga, deskripbar, kategor, penjual, conn);
                                                     }
                                                     catch
                                                     {
@@ -80,6 +83,21 @@ namespace Insert_and_Get_Data
                                                 }
                                                 break;
                                             case '3':
+                                                {
+                                                    Console.Clear();
+                                                    Console.WriteLine("INGING MENGHAPUS DATA BARANG? (Y/N) : ");
+                                                    string input = Console.ReadLine();
+                                                    if (input.ToLower() == "Y")
+                                                    {
+                                                        pr.delete(conn);
+                                                    }
+                                                    else
+                                                    {
+                                                        break;
+                                                    }
+                                                }
+                                                break;
+                                            case '4':
                                                 conn.Close();
                                                 return;
                                             default:
@@ -114,9 +132,17 @@ namespace Insert_and_Get_Data
             }
         }
 
+        public void delete(SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand("Delete from dbo.Barang(barang, nama barang, harga, deskripbar, kategor, penjual) = values(@bar,@nma,@harga,@deskrip,@kateg, @penjual)",con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@bar,@nma,@harga,@deskrip,@kateg, @penjual", "barang, nama barang, harga, deskripbar, kategor, penjual");
+            cmd.ExecuteNonQuery();
+        }
+
         public void baca(SqlConnection con)
         {
-            SqlCommand cmd = new SqlCommand("Select * From HRD.Mahasiswa", con);
+            SqlCommand cmd = new SqlCommand("Select * From dbo.Barang", con);
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
@@ -128,19 +154,20 @@ namespace Insert_and_Get_Data
             }
 
         }
-        public void insert(string NIM, string NmaMhs, string Almt, string jk, string notlpn, SqlConnection con)
+        public void insert(string barang, string namabar, string harga, string deskripbar, string kategor, string penjual, SqlConnection con)
         {
             string str = "";
-            str = "insert into HRD.MAHASISWA (NIM, NamaMhs, AlamatMhs, Sex, PhoneMhs)"
-                + "values(@nim,@nma,@alamat,@JK,@Phn)";
+            str = "insert into DBO.BARANG (barang, nama barang, harga, deskripbar, kategor, penjual)"
+                + "values(@bar,@nma,@harga,@deskrip,@kateg, @penjual)";
             SqlCommand cmd = new SqlCommand(str, con);
             cmd.CommandType = CommandType.Text;
 
-            cmd.Parameters.Add(new SqlParameter("nim", NIM));
-            cmd.Parameters.Add(new SqlParameter("nama", NmaMhs));
-            cmd.Parameters.Add(new SqlParameter("alamat", Almt));
-            cmd.Parameters.Add(new SqlParameter("jk", jk));
-            cmd.Parameters.Add(new SqlParameter("notlpn", notlpn));
+            cmd.Parameters.Add(new SqlParameter("barang", barang));
+            cmd.Parameters.Add(new SqlParameter("nama barang", namabar));
+            cmd.Parameters.Add(new SqlParameter("namabarang", harga));
+            cmd.Parameters.Add(new SqlParameter("deskripsibar", deskripbar));
+            cmd.Parameters.Add(new SqlParameter("kategori", kategor));
+            cmd.Parameters.Add(new SqlParameter("penjual", penjual)); 
             cmd.ExecuteNonQuery();
             Console.WriteLine("Data Berhasil Di Tambahkan");
         }
